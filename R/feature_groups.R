@@ -1263,6 +1263,16 @@ setMethod("screenSuspects", "featureGroups", function(obj, suspects, rtWindow, m
     gTable <- groups(obj)
     gInfo <- groupInfo(obj)
     anaInfo <- analysisInfo(obj)
+    
+    setMetaData <- function(t, suspRow)
+    {
+        for (col in c("name", "mz", "SMILES", "InChI", "formula", "neutralMass", "adduct", "rt"))
+        {
+            if (!is.null(suspects[[col]]))
+                set(t, 1L, col, suspRow[[col]])
+        }
+        return(t)
+    }        
 
     prog <- openProgBar(0, nrow(suspects))
 
@@ -1278,17 +1288,17 @@ setMethod("screenSuspects", "featureGroups", function(obj, suspects, rtWindow, m
             gi <- gInfo[numLTE(abs(gInfo$mzs - suspects$mz[ti]), mzWindow), ]
 
         if (nrow(gi) == 0) # no results? --> add NA result
-            return(data.table(name = suspects$name[ti], rt = if (hasRT) suspects$rt[ti] else NA, mz = suspects$mz[ti],
-                              group = NA, exp_rt = NA, exp_mz = NA, d_rt = NA, d_mz = NA))
+        {
+            ret <- data.table()
+            setMetaData(ret, suspects[ti])
+            ret[, c("group", "exp_rt", "exp_mz", "d_rt", "d_mz") := NA]
+            return(ret)
+        }
 
         hits <- rbindlist(lapply(rownames(gi), function(g)
         {
             ret <- data.table()
-            for (col in c("name", "mz", "SMILES", "InChI", "formula", "neutralMass", "adduct", "rt"))
-            {
-                if (!is.null(suspects[[col]]))
-                    set(ret, 1L, col, suspects[[col]][ti])
-            }
+            setMetaData(ret, suspects[ti])
             ret[, c("group", "exp_rt", "exp_mz", "d_rt", "d_mz") :=
                     .(g, gi[g, "rts"], gi[g, "mzs"], d_rt = if (hasRT) gi[g, "rts"] - rt else NA, gi[g, "mzs"] - mz)]
             
