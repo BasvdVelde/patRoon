@@ -1316,6 +1316,9 @@ setMethod("screenSuspects", "featureGroups", function(obj, suspects, rtWindow, m
     })
     ret <- rbindlist(retlist, fill = TRUE)
 
+    ret[, name_unique := make.unique(name)]
+    setcolorder(ret, c("name", "name_unique"))
+    
     setTxtProgressBar(prog, nrow(suspects))
     close(prog)
 
@@ -1325,7 +1328,7 @@ setMethod("screenSuspects", "featureGroups", function(obj, suspects, rtWindow, m
 
     saveCacheData("screenSuspectsFG", ret, hash)
 
-    return(ret)
+    return(ret[])
 })
 
 #' @templateVar func groupFeatures
