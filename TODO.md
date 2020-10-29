@@ -5,6 +5,7 @@
 - refs to OpenBabel?
 - convertMSFiles()
     - Agilent .d is also a directory?
+    - Support OpenMS vendor conversion? (eg thermo)
 - runWithoutCache? runWithCacheMode()? shortcut to withr::with_options(patRoon.cache.mode=...)
 
 ## AutoID
@@ -54,6 +55,11 @@
 - check for empty names in assertion/preparation functions
 - prepareSuspectList(): export? and always calculate neutralMass?
 - annotateSuspects() --> annotate() latter is a function (but not generic) from ggplot2 and RAMClustR and method from CAMERA, so probably no conflicts
+- don't assign level <1 if suspect is a target? or give the choice (or make filter?)
+- spec similarity:
+    - port from TPs someday
+    - proper default for min intensity?
+    - calculate from formulae too? and/or specify in rules from which?
 
 
 ## docs
