@@ -101,7 +101,8 @@ Imports:
     cowplot,
     jsonlite,
     Rdpack,
-    rsm
+    rsm,
+    yaml
 Suggests: 
     RDCOMClient,
     metfRag,
