@@ -75,8 +75,6 @@ setGeneric("plotHeatMap", function(obj, ...) standardGeneric("plotHeatMap"))
 
 ### suspect screening
 
-setGeneric("groupFeaturesScreening", function(fGroups, suspects, rtWindow = 12, mzWindow = 0.005, adduct = NULL,
-                                              skipInvalid = TRUE, onlyHits = FALSE) standardGeneric("groupFeaturesScreening"))
 setGeneric("screenInfo", function(obj) standardGeneric("screenInfo"))
 setGeneric("annotateSuspects", function(fGroups, MSPeakLists = NULL, formulas = NULL,
                                         compounds = NULL, ...) standardGeneric("annotateSuspects"))
@@ -141,8 +139,8 @@ NULL
 #'   only InChI data is available for mass calculation).
 #'
 #' @rdname suspect-screening
-setGeneric("screenSuspects", function(obj, suspects, rtWindow = 12, mzWindow = 0.005, adduct = NULL,
-                                      skipInvalid = TRUE) standardGeneric("screenSuspects"))
+setGeneric("groupFeaturesScreening", function(fGroups, suspects, rtWindow = 12, mzWindow = 0.005, adduct = NULL,
+                                              skipInvalid = TRUE, onlyHits = FALSE) standardGeneric("groupFeaturesScreening"))
 
 
 ### Optimization
