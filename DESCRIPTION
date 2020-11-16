@@ -102,6 +102,7 @@ Imports:
     jsonlite,
     Rdpack,
     rsm,
+    fs,
     yaml
 Suggests: 
     RDCOMClient,
